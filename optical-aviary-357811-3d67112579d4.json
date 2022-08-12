@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "optical-aviary-357811",
+  "private_key_id": "3d67112579d4b1ece677c129564706a607a04bd9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCl9FAQ+h79ng2P\nFb8/Tvqr506Zyii3ldTctMoAAC8bZOl14n/xgGk18en4KkNfOOERpDkTM7xDUjkM\nKZ6oKl9Z2Xc0wWe2dwmB2ssNFn7Nws0+B+Fy1/B7pFt5GzqP+qdqMsdA0dSfc0MR\nCCN4gmf6eujd/cOrEjHvLG4HTzO4jP6XhrBkIiKM+ddbJoxu2erUTPjWczwUaCF9\nUHkYfPrUnvRBoWhUcbS894x4fbyVID7Sz6s1MVvL+re3yXdV919DCuFDMLzAJEPj\nOtypNC0Bljvy6VwdQEVcGYSy2LhDFTORCLOyIRqvBBwqiXsaUvSdgyjn//poIIGH\nlkCI+m7dAgMBAAECggEAI6w2L8gMNFkusfSrRQkNojkY8L7/bKMk/AJSr5hah+lz\ns7bp6LhBJWrob8Np8wSPgNLLwABtdg0tHRuvMpfVIkO4N5thV1wUK5kj757HyCQZ\nKT3ZbO3VEEbesNQ1DPEE3rOmmBzitxm4L2eP9F4XysRz3RAo6NOC71YeGq0gQYmY\nGWh9tLbHCA3ws0WBCGc9/giYy56R3bLF1THTvY3PgB1KIJK6yzhTzwU0KfhEPvkU\ncNQddNnF/5cNg3ykkYDRZozUjQnJT5VOJF+u0X9LCoZzZn0/sLqv5pUtDGH2YG8m\nTyxpUStoIJ29IY5Fr1GY9QeWuqhQn7ZFFDFmnCBhgwKBgQDnDF+/DPYll+fTffHu\n4hR+IE7NDIlIWq+dLKMxw/U4P9uLwwr7oGwEoMqbazJla6/m5ewfJYC1rkhpiEHD\nxzmxtOXMnXuxiALlhdXRDNriQodJRSCO3Gv3pde1EnlOH637Dj4ulOp0cY/Z9VcZ\nNO0Af5hxnBmGFATBw2of5XaNPwKBgQC34FUWvCxBmLYDlnCDrKiGE1KAgNiduJB3\nA4PbPpYmw/XN4RxGH+rGQ8EWLKkhzdq72wihmuAXCkdVTvS5YQyVR5iuTeAIYwO1\nJIKQACXtf9HKfgQmEek8Sf7DNrzlfh44BgIShznFA5+tLDi2BbirC1y90NjGVsNy\nBHmQA+jQ4wKBgQCFzUuxd08g7Dyr5NbzsWeOtyULaEQka6ghzJThoArlvU1mPdih\nagDEGV3b7ZNs2pUukV5Rl0VXcYur2eXD/B70Q7+E5HqakBqlUwFFJD2qJD72dprp\nQMshyqAF06H+VShLKK9oCINSVeWpooQDK/xIepwMxwqc9ADhOUq/GAK0vwKBgDW0\n2mWHlM2cEx29JSPwnFB8+E38VEjNDbUVW7//6c9s0TDPHXkF/YbnZ1BYvxXWkJrq\nAP1ixS01nVw3cZdr10cK4HeY22TXts+D2HbC9FEIUnh4kjGkbaFkY3sVU9scGSt3\n5ccPpDn9MvhbwDy6MxQSf4YZqBdWZEO7Nt5vpeLNAoGAQ//UU4XdsEYcSL4xj9Ft\ngtvxk/taoxPeAvwSYgRYY1567xMV5IKOX5cCSCgUpj3ZMYKroDRdGmSr0ECfG5jQ\nM3g+h213wUnIsmOdzyGswBjtBwPeXlmkKvyd/XsrPVsmKZHywz192F6SiL86mWpG\nkCJJ3H7pt8zPqqMZV9CrOzU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "suntranslate@optical-aviary-357811.iam.gserviceaccount.com",
+  "client_id": "118239474020872808731",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/suntranslate%40optical-aviary-357811.iam.gserviceaccount.com"
+}

@@ -26,4 +26,9 @@ class State extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    public function translated()
+    {
+        return $this->belongsTo(TranslatedStates::class, 'id', 'state_id');
+    }
 }

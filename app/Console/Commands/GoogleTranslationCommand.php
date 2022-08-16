@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Country;
 use App\Models\State;
-use App\Models\TranslatedCountries;
+use App\Models\TranslatedStates;
+use Google\Cloud\Translate\V2\TranslateClient;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class GoogleTranslationCommand extends Command
 {
@@ -31,42 +32,36 @@ class GoogleTranslationCommand extends Command
      */
     public function handle()
     {
-        $languages = ['BG', 'CS', 'DA', 'DE', 'EL', 'EN-GB', 'EN-US', 'ES', 'ET', 'FI', 'FR', 'HU', 'ID', 'IT',
-            'JA', 'LT', 'LV', 'NL', 'PL', 'PT-BR', 'PT-PT', 'RO', 'RU', 'SK', 'SL', 'TR', 'SV', 'ZH']; //list of available languages
-        $states = State::all('name');
-        $countries = Country::all('name');
-        foreach ($languages as $language) {
-            foreach ($countries as $country) {
-                $response1 = json_decode(Http::withHeaders([
-                    'content-type' => 'application/x-www-form-urlencoded',
-                ])->post('https://api-free.deepl.com/v2/translate?auth_key=' . env('DEEPL_AUTH_KEY') . '&text='
-                    . $country->name . '&target_lang=' . $language));
-                if (!TranslatedCountries::where('language', $language)->exists()) {
-                    foreach ($response1->translations as $translation) { //insert data if country name not exists in specified language
-                        TranslatedCountries::updateOrCreate([
-                            'language' => $language
-                        ],
-                            [
-                                'translated_name' => $translation->text,
-                            ]);
-                    }
-                } else {
-                    foreach ($states as $state) { //if all languages exists, will start translating name of states
-                        $response2 = json_decode(Http::withHeaders([
-                            'content-type' => 'application/x-www-form-urlencoded',
-                        ])->post('https://api-free.deepl.com/v2/translate?auth_key=' . env('DEEPL_AUTH_KEY') . '&text='
-                            . $state->name . '&target_lang=' . $language));
-                        foreach ($response2->translations as $translation) {
-                            TranslatedCountries::updateOrCreate([
-                                'language' => $language
-                            ],
-                                [
-                                    'translated_name' => $translation->text,
-                                ]);
-                        }
-                    }
+        $languages = ['de', 'pl', 'en', 'es', 'fr', 'ru', 'hr', 'cs', 'pt', 'tr', 'uk'];
+        $value = array_fill_keys($languages, 0);
+        $count = DB::table('translated_states')
+            ->select('language', \DB::raw("count('language') as 'count'"))
+            ->whereIn('language', $languages)
+            ->groupBy('language')
+            ->get();
+        $merged = array_merge($value, $count->pluck('count', 'language')->toArray());
+        $filtered = array_filter($merged, fn($n) => $n < 4);
+        if (!empty($filtered)) {
+            foreach (array_flip($filtered) as $lang) {
+                $states = State::whereDoesntHave('translated', function (Builder $query) use ($lang) {
+                    $query->where('language', $lang);
+                })->limit(3)->get();
+                foreach ($states as $state) {
+                    $translate = new TranslateClient([
+                        'key' => 'AIzaSyAwqTdDzc_D1XF5SPS3xEc7c-FHb3SxXCQ'
+                    ]);
+                    $result = $translate->translate($state->name, [
+                        'source' => 'en',
+                        'target' => $lang
+                    ]);
+                    $state->translated()->create([
+                        'language' => $lang,
+                        'translated_name' => $result['text']
+                    ]);
                 }
             }
+        } else {
+            return 'prosze bardzo';
         }
         return 0;
     }

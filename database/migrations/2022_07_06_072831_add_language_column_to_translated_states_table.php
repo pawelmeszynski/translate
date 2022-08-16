@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('translated_names', function (Blueprint $table) {
+        Schema::table('translated_states', function (Blueprint $table) {
             $table->string('language')->after('translated_name');
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('translated_names', function (Blueprint $table) {
+        Schema::table('translated_states', function (Blueprint $table) {
             $table->dropColumn('language');
         });
     }

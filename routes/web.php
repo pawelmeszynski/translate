@@ -28,10 +28,10 @@ Route::get('/fetch-states', function () {
 Route::get('/fetch-types', function () {
     dump(Artisan::call('types:fetch'));
 });
-Route::get('/translate-names', function () {
+
+Route::get('/translate-states', function () {
     dump(Artisan::call('names:translate'));
 });
-Route::get('/job', [TranslateRequestController::class, 'translate'])->name('job');
 
 Route::get('/take', [TranslateRequestController::class, 'take']);
 

@@ -43,7 +43,6 @@ class TranslateRequest implements ShouldQueue
      */
     public function handle()
     {
-
         foreach (array_flip($this->difference) as $lang) {
             $countries = Country::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                 $query->where('language', $lang);
@@ -69,7 +68,7 @@ class TranslateRequest implements ShouldQueue
             ]);
             Log::info($collection->toJson());
         } catch (\Throwable $exception) {
-            if ($this->attempts() > 2) {
+            if ($this->attempts() >= 2) {
                 // hard fail after 2 attempts
                 throw $exception;
             }

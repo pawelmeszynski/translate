@@ -229,7 +229,7 @@
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    <img src="{{ asset('images/screen.PNG') }}" alt="tag">
+    <img src="{{ asset('images/post.PNG') }}" alt="tag">
     <p>successful operation</p>
     <a href="#Names">Names</a>
     <h4 class="field-label">400</h4>

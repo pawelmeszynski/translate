@@ -13,7 +13,9 @@ class TranslatedCountries extends Model
     protected $fillable = [
         'translated_name',
         'language',
-        'country_id'
+        'country_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo

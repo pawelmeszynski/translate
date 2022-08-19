@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
+use App\Models\TranslatedCountries;
+use Carbon\Carbon;
 use Google\Cloud\Translate\V2\TranslateClient;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -47,20 +49,34 @@ class TranslateRequest implements ShouldQueue
             $countries = Country::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                 $query->where('language', $lang);
             })->limit(3)->get();
-            foreach ($countries as $country) {
+            $chunks = $countries->chunk(125);
+            foreach ($chunks as $chunk) {
+                $plucked = $chunk->pluck('ext_id', 'name');
                 $translate = new TranslateClient([
                     'key' => 'AIzaSyAwqTdDzc_D1XF5SPS3xEc7c-FHb3SxXCQ'
                 ]);
-                $result = $translate->translate($country->name, [
+                $result = $translate->translateBatch($chunk->pluck('name')->toArray(), [
                     'source' => 'en',
                     'target' => $lang
                 ]);
-                $country->translated()->create([
-                    'language' => $lang,
-                    'translated_name' => $result['text']
-                ]);
+                foreach ($result as $item) {
+                    $array = [
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                        'country_id' => $plucked[$item['input']],
+                        'language' => $lang,
+                        'translated_name' => $item['text']
+                    ];
+                    TranslatedCountries::insert($array);
+                }
             }
         }
+//                $country->translated()->create([
+//                    'language' => $lang,
+//                    'translated_name' => $result['text']
+//                ]);
+
+
         $collection = CountryResource::collection(Country::with('translated')->get());
         try {
             $request = Http::post($this->url, [
@@ -68,7 +84,7 @@ class TranslateRequest implements ShouldQueue
             ]);
             Log::info($collection->toJson());
         } catch (\Throwable $exception) {
-            if ($this->attempts() >= 2) {
+            if ($this->attempts() > 2) {
                 // hard fail after 2 attempts
                 throw $exception;
             }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('states', function (Blueprint $table) {
             $table->unsignedBigInteger('type_id')->after('country_id')->nullable();
+            $table->foreign('type_id')->references('id')->on('types');
         });
     }
 
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->dropColumn('type_id');
+            $table->dropForeign('type_id');
         });
     }
 };

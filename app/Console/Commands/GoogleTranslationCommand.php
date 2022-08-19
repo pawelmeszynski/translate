@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\State;
-use App\Models\TranslatedStates;
 use Google\Cloud\Translate\V2\TranslateClient;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +31,8 @@ class GoogleTranslationCommand extends Command
      */
     public function handle()
     {
-        $languages = ['de', 'pl', 'en', 'es', 'fr', 'ru', 'hr', 'cs', 'pt', 'tr', 'uk'];
+        $languages = ['de', 'pl', 'es', 'fr', 'ru', 'hr', 'cs', 'pt', 'tr', 'uk'];
+
         $value = array_fill_keys($languages, 0);
         $count = DB::table('translated_states')
             ->select('language', \DB::raw("count('language') as 'count'"))
@@ -40,12 +40,12 @@ class GoogleTranslationCommand extends Command
             ->groupBy('language')
             ->get();
         $merged = array_merge($value, $count->pluck('count', 'language')->toArray());
-        $filtered = array_filter($merged, fn($n) => $n < 4);
+        $filtered = array_filter($merged, fn($n) => $n < 4717);
         if (!empty($filtered)) {
             foreach (array_flip($filtered) as $lang) {
                 $states = State::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                     $query->where('language', $lang);
-                })->limit(3)->get();
+                })->limit(4)->get();
                 foreach ($states as $state) {
                     $translate = new TranslateClient([
                         'key' => 'AIzaSyAwqTdDzc_D1XF5SPS3xEc7c-FHb3SxXCQ'
@@ -60,8 +60,6 @@ class GoogleTranslationCommand extends Command
                     ]);
                 }
             }
-        } else {
-            return 'prosze bardzo';
         }
         return 0;
     }

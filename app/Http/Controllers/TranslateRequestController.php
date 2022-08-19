@@ -6,6 +6,7 @@ use App\Http\Resources\CountryResource;
 use App\Jobs\TranslateRequest;
 use App\Models\Country;
 use App\Models\TranslatedCountries;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -38,12 +39,14 @@ class TranslateRequestController extends Controller
 
         $value = array_fill_keys($userLanguage, 0);
         $merged = array_merge($value, $count->pluck('count', 'language')->toArray());
-        $difference = array_filter($merged, fn($n) => $n < 250);
+        $difference = array_filter($merged, fn($n) => $n < 3);
         if (!empty($difference)) {
             $this->dispatch(new TranslateRequest($difference, $userLanguage, $url));
             return response()->json(['error' => 'We do not have one of your languages']);
         } else {
-            return CountryResource::collection(Country::with('translated')->get());
+            return CountryResource::collection(Country::whereHas('translated', function (Builder $query) use ($userLanguage) {
+                $query->whereIn('language', $userLanguage);
+            })->get());
         }
     }
 

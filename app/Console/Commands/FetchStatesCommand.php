@@ -31,8 +31,6 @@ class FetchStatesCommand extends Command
      */
     public function handle()
     {
-// sv7fjDVISU
-//        dd($countries);
         $response = json_decode(Http::withHeaders([
             'X-Parse-Application-Id' => 'lqQDzzsHQWGvebktR0Pqo3wshjQ60c4B6Op47OzM',
             'X-Parse-REST-API-Key' => '8g94GN95DpRsRr6iJmkvA2RMOMXHoU2YkLkifkCj',

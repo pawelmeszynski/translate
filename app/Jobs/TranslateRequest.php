@@ -75,9 +75,9 @@ class TranslateRequest implements ShouldQueue
 //                    'language' => $lang,
 //                    'translated_name' => $result['text']
 //                ]);
-
-
-        $collection = CountryResource::collection(Country::with('translated')->get());
+        $collection = CountryResource::collection(Country::whereHas('translated', function (Builder $query) {
+            $query->whereIn('language', array_flip($this->difference));
+        })->get());
         try {
             $request = Http::post($this->url, [
                 $collection->toJson()

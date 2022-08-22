@@ -23,6 +23,7 @@ class CountryResource extends JsonResource
             'code' => $this->resource->code,
             'code_3' => $this->resource->code_3,
             'code_num' => $this->resource->code_num,
+            'call_prefix' => $this->resource->call_prefix,
             'translations' => [
                 $pluck
             ]

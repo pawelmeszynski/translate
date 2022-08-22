@@ -48,7 +48,7 @@ class TranslateRequest implements ShouldQueue
         foreach (array_flip($this->difference) as $lang) {
             $countries = Country::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                 $query->where('language', $lang);
-            })->limit(3)->get();
+            })->limit(3)->get();                                  //from difference taking only not-translated countries
             $chunks = $countries->chunk(125);
             foreach ($chunks as $chunk) {
                 $plucked = $chunk->pluck('ext_id', 'name');
@@ -58,7 +58,7 @@ class TranslateRequest implements ShouldQueue
                 $result = $translate->translateBatch($chunk->pluck('name')->toArray(), [
                     'source' => 'en',
                     'target' => $lang
-                ]);
+                ]);                                                                 //translating an array of countries
                 foreach ($result as $item) {
                     $array = [
                         'created_at' => Carbon::now(),
@@ -71,13 +71,9 @@ class TranslateRequest implements ShouldQueue
                 }
             }
         }
-//                $country->translated()->create([
-//                    'language' => $lang,
-//                    'translated_name' => $result['text']
-//                ]);
         $collection = CountryResource::collection(Country::whereHas('translated', function (Builder $query) {
             $query->whereIn('language', array_flip($this->difference));
-        })->get());
+        })->get());                                                 //collection only of countries which are in database
         try {
             $request = Http::post($this->url, [
                 $collection->toJson()

@@ -30,7 +30,7 @@ Route::get('/fetch-types', function () {
 });
 
 Route::get('/translate-states', function () {
-    dump(Artisan::call('names:translate'));
+    dump(Artisan::call('states:translate'));
 });
 
 Route::get('/take', [TranslateRequestController::class, 'take']);

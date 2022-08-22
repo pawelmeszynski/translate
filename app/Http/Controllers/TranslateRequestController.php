@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CountryResource;
 use App\Jobs\TranslateRequest;
 use App\Models\Country;
-use App\Models\TranslatedCountries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,17 +43,19 @@ class TranslateRequestController extends Controller
             $this->dispatch(new TranslateRequest($difference, $userLanguage, $url));
             return response()->json(['error' => 'We do not have one of your languages']);
         } else {
-            return CountryResource::collection(Country::whereHas('translated', function (Builder $query) use ($userLanguage) {
-                $query->whereIn('language', $userLanguage);
-            })->get());
+            if (empty($userLanguage)) {
+                return CountryResource::collection(Country::with('translated')->get());
+            } else {
+                return CountryResource::collection(Country::whereHas('translated', function (Builder $query) use ($userLanguage) {
+                    $query->whereIn('language', $userLanguage);
+                })->get());
+            }
         }
     }
 
     public function take()
     {
-        $response = json_decode(Http::asJson([
-        ])->get('countries-api.ddev.site/api/names?lang[]=jv&lang[]=pl'));
-        dd($response);
+        $response = json_decode(Http::asJson()->get('countries-api.ddev.site/api/names?lang[]=pl'));
     }
 
     public function post(Request $request)

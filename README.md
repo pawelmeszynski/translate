@@ -8,8 +8,8 @@ Put your language in url as array and feel free to take your translation.
 
 ## Installation
 
-composer install
-composer update
-php artisan key:generate
-php artisan storage:link
-php artisan migrate
+ - composer install
+ - composer update
+ - php artisan key:generate
+ - php artisan storage:link
+ - php artisan migrate

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\State;
-use App\Models\TranslatedCountries;
 use App\Models\TranslatedStates;
 use Carbon\Carbon;
 use Google\Cloud\Translate\V2\TranslateClient;

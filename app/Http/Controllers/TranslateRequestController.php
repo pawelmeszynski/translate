@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Log;
 
 class TranslateRequestController extends Controller
 {
+
+
+
     public function index(Request $request)
     {
         $url = $request->url();
@@ -35,7 +38,6 @@ class TranslateRequestController extends Controller
             ->whereIn('language', $userLanguage)
             ->groupBy('language')
             ->get();
-
         $value = array_fill_keys($userLanguage, 0);
         $merged = array_merge($value, $count->pluck('count', 'language')->toArray());
         $difference = array_filter($merged, fn($n) => $n < 3);

@@ -48,7 +48,7 @@ class TranslateRequest implements ShouldQueue
         foreach (array_flip($this->difference) as $lang) {
             $countries = Country::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                 $query->where('language', $lang);
-            })->limit(3)->get();                                  //from difference taking only not-translated countries
+            })->limit(2)->get();                                  //from difference taking only not-translated countries
             $chunks = $countries->chunk(125);
             foreach ($chunks as $chunk) {
                 $plucked = $chunk->pluck('ext_id', 'name');

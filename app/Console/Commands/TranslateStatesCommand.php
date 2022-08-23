@@ -42,12 +42,12 @@ class TranslateStatesCommand extends Command
             ->groupBy('language')
             ->get();
         $merged = array_merge($value, $count->pluck('count', 'language')->toArray());
-        $filtered = array_filter($merged, fn($n) => $n < 4717);
+        $filtered = array_filter($merged, fn($n) => $n < 4);
         if (!empty($filtered)) {
             foreach (array_flip($filtered) as $lang) {
                 $states = State::whereDoesntHave('translated', function (Builder $query) use ($lang) {
                     $query->where('language', $lang);
-                })->limit(50)->get();
+                })->limit(2)->get();
                 $chunks = $states->chunk(128);
                 foreach ($chunks as $chunk) {
                     $plucked = $chunk->pluck('id', 'name');

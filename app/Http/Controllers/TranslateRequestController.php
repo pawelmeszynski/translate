@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Log;
 class TranslateRequestController extends Controller
 {
 
-
-
     public function index(Request $request)
     {
         $url = $request->url();

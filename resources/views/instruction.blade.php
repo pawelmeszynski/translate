@@ -1,15 +1,50 @@
 <!doctype html>
 <html>
 <head>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <title>SunTranslate API</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link href="/dist/output.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1 class="text-inherit"> Translation API</h1>
-
-
+<div class="red-container">
+    <div class="bg"></div>
+    <h1> Translation API</h1>
+</div>
+<div class="text-container">
+    <p>How to use SunTranslate APi? It's really simple, check out the endpoints below👇 </br>
+    </p>
+</div>
+<section>
+    <div class="left-line"></div>
+    <div class="right-line"></div>
+    <div class="blue-container">
+        <h3><a href="https://countries-api.ddev.site/api/names">GET /api/names</a></h3>
+    </div>
+    <p class="instruction">Get all names <b>(or array of languages to translate)</b></p>
+    <p class="text-gray"><i>Query parameters</i>
+        <i class="bi bi-arrow-down-short"></i>
+    </p>
+    <div class="parameter-container">
+        <table>
+            <tr>
+                <th colspan="2">Parameters</th>
+            </tr>
+            <tr>
+                <td>lang</td>
+                <td><em>(Optional)</em><p>Array of languages, need to be an array!</p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="response-container">
+        <p><b>Response body<br></b>If successful, the response body contains data with the following structure:</p>
+        <img src="{{ asset('images/api.PNG') }}" alt="tag">
+        <p><b>400</b></p>
+        <p>Something went wrong </p>
+        <p><b>404</b></p>
+        <p>Nothing in database</p>
+    </div>
+</section>
+<hr>
 <footer>
     <p>© Author: Paweł Meszyński</p>
 </footer>

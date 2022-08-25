@@ -3,17 +3,21 @@ body {
 }
 hr {
     background-color: #777777;
+    height: 6px;
+    border-radius: 10000px;
+    opacity: 20%;
     margin: 0;
 }
+
 h1 {
-    margin: 0px;
-    color:white;
+    margin: 0;
+    color: white;
     text-align: center;
     z-index: 9;
 }
-.red-container {
-    position: sticky;
-    top: 10px;
+
+.head-container {
+    position: relative;
     width: 250px;
     margin: 20px auto 0;
 }
@@ -34,6 +38,7 @@ h1 {
 p {
     font-size: 17px;
 }
+
 .text-container {
     display: flex;
     justify-content: center;
@@ -42,13 +47,21 @@ p {
     height: auto;
     padding: 5px;
 }
+
+.text-container img {
+    max-width: 35px;
+    margin: 5px auto 0;
+}
+
 .text-container p {
     font-weight: bold;
     font-size: 20px;
 }
+
 .text-container ul {
     list-style-position: inside;
 }
+
 .blue-container {
     padding: 5px;
     width: 250px;
@@ -77,18 +90,28 @@ section {
     color: gray;
     text-align: center;
 }
+
 .parameter-container {
-    margin: 0 auto 0 ;
+    margin: 0 auto 0;
     width: 500px;
     padding: 0;
     text-align: center;
 }
+
+.parameter-container em {
+    font-size: 19px;
+    position: relative;
+    top: 9px;
+}
+
 .example-container {
     margin: 40px 0 0;
 }
+
 .example-container h3 {
     margin: 0;
 }
+
 .example-container p {
     margin: 0 0 15px;
 }
@@ -120,23 +143,32 @@ section {
     font-family: monospace;
     font-size: 14px;
 }
+
 .response-container {
     display: flex;
-    padding: 20px 0 0 ;
+    padding: 20px 0 0;
     text-align: center;
     flex-direction: column;
 }
+
 .response-container p {
-    margin: 0 0 10px;
+    margin: 0 0 3px;
 }
+
+.response-container em {
+    font-weight: bold;
+}
+
 img {
     width: 350px;
     margin: 20px auto 0;
 }
+
 table, tr, th, td {
     border: 1px solid #D3D3D3;
     border-collapse: collapse;
 }
+
 th {
     text-align: left;
     background-color: #DCDCDC;
@@ -147,7 +179,7 @@ table {
 }
 td:first-child {
     background-color: #ececec;
-    width: 30%;
+    width: 25%;
 }
 td:nth-child(2) {
     width: 100%;

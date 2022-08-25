@@ -3,15 +3,17 @@
 <head>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <title>SunTranslate API</title>
 </head>
 <body>
-<div class="red-container">
+<div class="head-container">
     <div class="bg"></div>
     <h1> Translation API</h1>
 </div>
 <div class="text-container">
-    <p>How to use SunTranslate APi? It's really simple, check out the endpoints below👇 </br>
+    <p>How to use SunTranslate APi? It's really simple, check out the endpoints below!  </br>
+        <img src="{{ asset('images/arrow.PNG') }}" alt="tag">
     </p>
 </div>
 <section>
@@ -31,12 +33,12 @@
             </tr>
             <tr>
                 <td>lang</td>
-                <td><em>(Optional)</em><p>Array of languages, need to be an array!</p></td>
+                <td><em>(Optional)</em><p>Array of languages to translate, there is no limit of lang parameters</p></td>
             </tr>
         </table>
     </div>
     <div class="response-container">
-        <p><b>Response body<br></b>If successful, the response body contains data with the following structure:</p>
+        <p><em>Response body<br></em>If successful, the response body contains data with the following structure:</p>
         <img src="{{ asset('images/api.PNG') }}" alt="tag">
         <p><b>400</b></p>
         <p>Something went wrong </p>
